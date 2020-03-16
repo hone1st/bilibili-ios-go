@@ -18,7 +18,7 @@ var save bool
 var err error
 
 // v1版本的开始方法
-func MainV1() {
+func Main() {
 	config = util.InitConfig()
 	save, err = strconv.ParseBool(config["save"])
 	if err != nil {
@@ -32,7 +32,7 @@ func MainV1() {
 		v := i.(*Bili)
 		v.FfmpegAudioVideo()
 	}
-	util.GoFunc(12, do, mp)
+	util.GoFunc(14, do, mp)
 
 	fmt.Println("请输入任意键退出：")
 	d := "1"
