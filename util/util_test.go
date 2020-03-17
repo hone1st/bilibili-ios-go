@@ -21,17 +21,31 @@ type Bili struct {
 }
 
 func TestGoFunc(t *testing.T) {
-
-	do := func(i interface{}) {
-
-		fmt.Println(i.(*Bili).Video)
+	do := func(item ...interface{}) {
+		fmt.Println(item[1].(int))
+		fmt.Println(item[0].(int))
+		fmt.Println(item)
 	}
+	var mp = map[interface{}]interface{}{}
 
-	var mp = map[string]interface{}{}
-
-	mp["sdsad"] = &Bili{
-		Video: "34242432",
+	for i := 0; i < 10; i++ {
+		mp[i] = i
 	}
-
 	GoFunc(5, do, mp)
+}
+
+// 测试返回的数
+func TestRand(t *testing.T) {
+	mItems := map[interface{}]float64{
+		0: 0.1,
+		1: 0.9,
+		2: 0.9,
+	}
+	i, err := GetRandItem(mItems)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println("===", i.(int))
+	}
+
 }

@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-var mp = map[string]interface{}{}
+var mp = map[interface{}]interface{}{}
 var config = map[string]string{}
 var save bool
 var err error
@@ -28,8 +28,8 @@ func Main() {
 	_ = filepath.Walk(util.DealPath(config["name_path"], false), SetOut)
 
 	// 开始处理
-	do := func(i interface{}) {
-		v := i.(*Bili)
+	do := func(item ...interface{}) {
+		v := item[1].(*Bili)
 		v.FfmpegAudioVideo()
 	}
 	util.GoFunc(14, do, mp)

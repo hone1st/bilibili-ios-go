@@ -2,4 +2,4 @@ module bilibli-ios
 
 go 1.12
 
-require golang.org/x/text v0.3.2
+require github.com/shopspring/decimal v0.0.0-20200227202807-02e2044944cc
