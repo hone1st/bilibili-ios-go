@@ -94,28 +94,27 @@ type randItem struct {
 // items 自定义key为要返回的值 v为占的百分比 浮点数
 // 返回key的值  随机按比例
 func GetRandItem(items map[interface{}]float64) (interface{}, error) {
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano() + rand.Int63())
 	c := decimal.NewFromFloat(float64(rand.Intn(100)))
 	at := decimal.NewFromInt(0)
 	mp := map[interface{}]*randItem{}
-
 	check := 0.00
 	for k, f := range items {
 		if f <= 0 {
 			continue
 		}
+
 		mp[k] = &randItem{
 			start: at,
 			end:   at.Add(decimal.NewFromFloat(f).Mul(decimal.NewFromInt(100))),
 		}
-		at = mp[k].end.Add(at)
+		at = mp[k].end
 		check += f
 	}
 
 	if check > 1.00 {
 		return nil, errors.New("所有的占比不能大于1")
 	}
-
 	for k, f := range mp {
 		if f.start.IntPart() <= c.IntPart() && f.end.IntPart() > c.IntPart() {
 			return k, nil

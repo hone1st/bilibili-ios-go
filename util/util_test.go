@@ -36,16 +36,23 @@ func TestGoFunc(t *testing.T) {
 
 // 测试返回的数
 func TestRand(t *testing.T) {
-	mItems := map[interface{}]float64{
-		0: 0.1,
-		1: 0.9,
-		2: 0.9,
+	do := func(item ...interface{}) {
+		mItems := map[interface{}]float64{
+			"黄梓健不中奖": 0.9,
+			"黄梓健中奖":  0.1,
+		}
+		i, err := GetRandItem(mItems)
+		if err != nil {
+			fmt.Println(err.Error())
+		} else {
+			fmt.Println("===", i)
+		}
 	}
-	i, err := GetRandItem(mItems)
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("===", i.(int))
+	var mp = map[interface{}]interface{}{}
+
+	for i := 0; i < 10; i++ {
+		mp[i] = i
 	}
+	GoFunc(10, do, mp)
 
 }
